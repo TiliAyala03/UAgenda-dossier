@@ -1,3 +1,4 @@
+```mermaid
 erDiagram
 	direction TB
 	USUARIO {
@@ -92,3 +93,4 @@ erDiagram
 	MATERIA||--o{HORARIO:"asigna"
 	MAZO||--o{FLASHCARD:"contiene"
 	HORARIO||--o{RECORDATORIO:"Genera"
+```
