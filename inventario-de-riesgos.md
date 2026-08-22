@@ -6,9 +6,6 @@
 
 ![alt text](image.png)
 
-```
-(pegar acá la salida de la terminal, o insertar imagen)
-```
 
 ## 2. Inventario de riesgos
 
