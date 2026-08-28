@@ -2,9 +2,9 @@
 
 ## Condiciones de la medición
 
-- **Fecha y hora:** [COMPLETAR]
-- **Máquina:** [COMPLETAR — CPU, RAM, sistema operativo]
-- **Otras apps corriendo en simultáneo:** [COMPLETAR — navegador, editor, etc.]
+- **Fecha y hora:** 28/08/2026 15:02 p.m.
+- **Máquina:** Portatil ASUS - 12 GB RAM
+- **Otras apps corriendo en simultáneo:** VS Code / Google Chrome / Spotify / MySQLWorkbench
 - **Modo del servidor:** Flask dev server, `debug=True`, `threaded=True` (ver `main.py`)
 - **Base de datos:** MySQL local — [COMPLETAR: ¿estaba siendo usada por algo más en simultáneo?]
 - **Ruta medida:** `GET /` (página de login, sin consulta a base de datos)
@@ -65,11 +65,3 @@ data_sent........................: 64 kB   533 B/s
 | p95 tiempo de respuesta | < 500 ms | 3.73 ms | ✅ Sí, con amplísimo margen (~134x mejor que el umbral) |
 | Tasa de error | 0% | 0.00% | ✅ Sí |
 
-[COMPLETAR EN EQUIPO] — El escenario se cumplió con tanto margen que el
-umbral de 500ms probablemente quedó demasiado laxo para ser útil como
-señal de alerta futura: un umbral que nunca se acerca a fallar no sirve
-para detectar regresiones reales. Vale la pena que el equipo discuta si
-conviene: (a) bajar el umbral a algo más exigente (ej. p95 < 50ms) para
-que sea una señal significativa, o (b) mantenerlo así pero ampliar el
-escenario a una carga mayor (ej. 50-100 VUs) o a una ruta que sí toque
-MySQL, donde es más probable ver degradación real.

@@ -2,8 +2,8 @@
 
 ## Condiciones de la medición
 
-- **Fecha y hora:** [COMPLETAR]
-- **Máquina:** [COMPLETAR]
+- **Fecha y hora:** 28/08/2026 - 16:27 p.m.
+- **Máquina:** Portatil ASUS - 12 GB RAM
 - **Ruta medida:** `POST /loginAccess` (autenticación + 7 consultas SELECT
   a `recordatorios` + `INSERT` de traza + render de `admin.html`, todo
   en una sola petición)
@@ -84,10 +84,3 @@ atribuible al trabajo que hace `/loginAccess` — particularmente las
 **7 consultas SELECT separadas** a `recordatorios` (una por columna),
 que en teoría podrían combinarse en una sola consulta que traiga todas
 las columnas de una vez.
-
-[COMPLETAR EN EQUIPO] — Esto es una hipótesis de optimización basada en
-lectura del código, no algo ya medido de forma aislada. Si el equipo
-quiere ir un paso más allá: se podría refactorizar esa parte de
-`main.py` a una sola consulta y volver a correr este mismo script para
-confirmar (con datos, no solo intuición) cuánto mejora realmente el
-p95. Quedaría como una iteración futura de este mismo experimento.
