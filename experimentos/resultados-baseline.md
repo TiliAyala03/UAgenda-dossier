@@ -64,4 +64,3 @@ data_sent........................: 64 kB   533 B/s
 |---|---|---|---|
 | p95 tiempo de respuesta | < 500 ms | 3.73 ms | ✅ Sí, con amplísimo margen (~134x mejor que el umbral) |
 | Tasa de error | 0% | 0.00% | ✅ Sí |
-
