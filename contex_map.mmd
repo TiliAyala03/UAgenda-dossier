@@ -1,0 +1,88 @@
+flowchart TB
+
+    %% =========================
+    %% NÚCLEO VISUAL
+    %% =========================
+    UA(["<b>Context Map</b><br/>UAgenda"])
+
+    %% =========================
+    %% CONTEXTOS
+    %% =========================
+    USU(["<b>Usuarios y autenticación</b><br/>Identidad · Acceso · Habilitación"])
+
+    ACA(["<b>Organización académica</b><br/>Horarios · Eventos · Planificación"])
+
+    REC(["<b>Recordatorios</b><br/>Recordatorios · Fecha · Hora"])
+
+    EST(["<b>Gestión del estudio</b><br/>Cuadernos · Flashcards · Contenido"])
+
+    TRA(["<b>Trazabilidad y actividad</b><br/>Acciones · Servicios · Registro"])
+
+
+    %% =========================
+    %% RELACIONES
+    %% =========================
+
+    USU -->|"Identifica al estudiante<br/>y permite el acceso"| ACA
+
+    USU -->|"Identifica al estudiante<br/>propietario del recordatorio"| REC
+
+    USU -->|"Identifica al estudiante<br/>propietario del contenido"| EST
+
+    USU -->|"Identifica al usuario<br/>que realizó la acción"| TRA
+
+    ACA -->|"Información de actividades<br/>académicas que pueden requerir seguimiento"| REC
+
+    ACA -.->|"Actividad académica<br/>registrada"| TRA
+
+    REC -.->|"Creación o gestión<br/>de recordatorios"| TRA
+
+    EST -.->|"Acciones sobre cuadernos<br/>y flashcards"| TRA
+
+
+    %% =========================
+    %% CONEXIONES VISUALES AL CENTRO
+    %% =========================
+
+    UA --- USU
+    UA --- ACA
+    UA --- REC
+    UA --- EST
+    UA --- TRA
+
+
+    %% =========================
+    %% ESTILOS
+    %% =========================
+
+    classDef centro fill:#F5F3FF,stroke:#8B5CF6,stroke-width:3px,color:#4C1D95;
+
+    classDef usuarios fill:#E0F2FE,stroke:#0284C7,stroke-width:2px,color:#0C4A6E;
+
+    classDef academico fill:#DCFCE7,stroke:#16A34A,stroke-width:2px,color:#14532D;
+
+    classDef recordatorios fill:#FEF3C7,stroke:#D97706,stroke-width:2px,color:#78350F;
+
+    classDef estudio fill:#FCE7F3,stroke:#DB2777,stroke-width:2px,color:#831843;
+
+    classDef trazabilidad fill:#EDE9FE,stroke:#7C3AED,stroke-width:2px,color:#4C1D95;
+
+
+    class UA centro;
+    class USU usuarios;
+    class ACA academico;
+    class REC recordatorios;
+    class EST estudio;
+    class TRA trazabilidad;
+
+
+    %% =========================
+    %% ESTILO DE FLECHAS
+    %% =========================
+
+    linkStyle 0,1,2,3 stroke:#64748B,stroke-width:2px;
+    linkStyle 4 stroke:#D97706,stroke-width:2px;
+    linkStyle 5,6,7 stroke:#8B5CF6,stroke-width:2px,stroke-dasharray:5 5;
+
+    %% Conexiones visuales al centro
+    linkStyle 8,9,10,11,12 stroke:#CBD5E1,stroke-width:1px,stroke-dasharray:3 3;
