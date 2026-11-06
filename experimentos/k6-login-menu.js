@@ -12,10 +12,13 @@
 // siquiera de prueba) en el repositorio del dossier.
 //
 // Cómo correr:
-//   k6 run -e TEST_EMAIL=tu_correo_de_prueba -e TEST_PASSWORD=tu_password_de_prueba k6-login-menu.js
+//   k6 run -e TEST_EMAIL=usuario1@example.com -e TEST_PASSWORD=usuario1 k6-login-menu.js
 
 import http from 'k6/http';
 import { check, sleep } from 'k6';
+import { Trend } from 'k6/metrics';
+
+const flujoCompleto = new Trend('login_menu_total', true);
 
 export const options = {
   stages: [
@@ -24,11 +27,7 @@ export const options = {
     { duration: '30s', target: 0 },
   ],
   thresholds: {
-    // Umbral más exigente que el del baseline anterior, porque esta
-    // ruta sí toca la base de datos varias veces — es razonable
-    // esperar algo más lento que servir una página estática, pero
-    // igual debería responder rápido en una carga liviana como esta.
-    http_req_duration: ['p(95)<1000'],
+    login_menu_total: ['p(95)<1000'],
     http_req_failed: ['rate<0.01'],
   },
 };
@@ -37,16 +36,19 @@ const EMAIL = __ENV.TEST_EMAIL;
 const PASSWORD = __ENV.TEST_PASSWORD;
 
 export default function () {
-  const res = http.post('http://localhost:5000/loginAccess', {
-    txtEmail: EMAIL,
-    txtPassword: PASSWORD,
-  });
+  const login = http.post(
+    'http://localhost:5000/loginAccess',
+    { txtEmail: EMAIL, txtPassword: PASSWORD },
+    { redirects: 0, tags: { paso: 'login' } }
+  );
+  const menu = http.get('http://localhost:5000/admin', { tags: { paso: 'admin' } });
 
-  check(res, {
+  check(login, { 'login redirige (302)': (r) => r.status === 302 });
+  check(menu, {
     'status es 200': (r) => r.status === 200,
-    'devuelve el menu principal (no la pantalla de login)': (r) =>
-      r.body && r.body.includes('bueno verte de nuevo'),
+    'devuelve el menu principal': (r) => r.body && r.body.includes('bueno verte de nuevo'),
   });
 
+  flujoCompleto.add(login.timings.duration + menu.timings.duration);
   sleep(1);
 }
